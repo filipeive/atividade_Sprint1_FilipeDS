@@ -1,70 +1,111 @@
-// Função para solicitar ao usuário para digitar o PIN
-function solicitarPin() {
-    return prompt("Por favor, digite um PIN com exatamente 4 dígitos:");
+let pinCorreto;
+
+function iniciarSistema() {
+    const pinForm = document.getElementById('pinForm');
+    const startButton = document.getElementById('startButton');
+    const fecharButton = document.getElementById('fecharButton');
+
+    if (!pinCorreto) {
+        pinCorreto = gerarPIN();
+    }
+
+    mostrarMensagem("");
+    document.getElementById('pinForm').reset();
+    pinForm.style.display = 'block';
+    startButton.style.display = 'none';
+    fecharButton.style.display = 'block';
 }
 
-//var pinCorreto = 1524; // pin fixo
-var pinCorreto = Math.floor(Math.random() * 9000) + 1000; // pin aleatório
-console.log("DEBUG: Número PIN correto gerado aleatoriamente:", pinCorreto);
-var tentativas = 0; // Contador de Tentativas
+function fecharForm() {
+    const pinForm = document.getElementById('pinForm');
+    const startButton = document.getElementById('startButton');
+    const fecharButton = document.getElementById('fecharButton');
 
-// Loop externo para permitir que o usuário tente novamente
-while (true) { // Início do loop externo
-    var pinUsuario = solicitarPin(); // Chamar a função para solicitar o PIN ao usuário
-    console.log("DEBUG: PIN do usuário inserido:", pinUsuario);
+    pinForm.style.display = 'none';
+    startButton.style.display = 'block';
+    fecharButton.style.display = 'none';
+    resetarForm();
+}
 
-    // Verificar se o usuário clicou em "Cancelar" ou deixou em branco
-    if (pinUsuario === null) {
-        alert("Operação cancelada. Programa encerrado.");
-        break; // Sai do loop externo se o usuário cancelar
+function toggleForm() {
+    const pinForm = document.getElementById('pinForm');
+    const startButton = document.getElementById('startButton');
+    const fecharButton = document.getElementById('fecharButton');
+
+    if (pinForm.style.display === 'none') {
+        pinCorreto = gerarPIN();
+        mostrarMensagem("");
+        document.getElementById('pinForm').reset();
+        pinForm.style.display = 'block';
+        startButton.style.display = 'none';
+        fecharButton.style.display = 'block';
+    } else {
+        pinForm.style.display = 'none';
+        startButton.style.display = 'block';
+        fecharButton.style.display = 'none';
     }
-    // Loop interno para garantir que o PIN seja fornecido corretamente
-    while (true) { // Início do loop interno
-        if (pinUsuario === null) {
-            alert("Operação cancelada. Programa encerrado.");
-            break; // Sai do loop interno se o usuário cancelar
-        }
-        // Verificar se o PIN tem 4 dígitos e é composto apenas por números
-        if (pinUsuario.length !== 4 || isNaN(pinUsuario)) {
-            alert("O PIN deve ter exatamente 4 dígitos e ser composto apenas por números. Tente novamente.");
-            pinUsuario = solicitarPin(); // Solicitar novamente dentro do loop interno
-        } else {
-            // Converter o PIN do usuário para um número inteiro
-            var pinUsuarioNum = parseInt(pinUsuario);
+}
 
-            // Verificar se o PIN está correto
-            if (pinUsuarioNum === pinCorreto) {
-                alert("Parabéns! Você acertou o PIN: " + pinCorreto + "  em  " + tentativas + " tentativas.");
-                break; // Sai do loop interno, pois o PIN foi encontrado
-            } else {
-                // dicas
-                if (pinUsuarioNum < pinCorreto) {
-                    if (pinCorreto - pinUsuarioNum > 100) {
-                        alert("O PIN deve ser muito maior que: " + pinUsuario + ". Tente novamente.");
-                    } else {
-                        alert("O PIN deve ser maior que: " + pinUsuario + ". Tente novamente.");
-                    }
-                } else {
-                    if (pinUsuarioNum - pinCorreto > 100) {
-                        alert("O PIN deve ser muito menor que: " + pinUsuario + ". Tente novamente.");
-                    } else {
-                        alert("O PIN deve ser menor que: " + pinUsuario + ". Tente novamente.");
-                    }
-                }
+function verificarPIN() {
+    const pinInput = document.getElementById('pinInput');
+    const successMessage = document.getElementById('successMessage');
+    const outputElement = document.getElementById('output');
 
-                tentativas++;
-                // Solicitar novamente dentro do loop interno
-                pinUsuario = solicitarPin();
-            }
-        }
-    } // Fim do loop interno
+    // Validação: Apenas números com exatamente 4 dígitos são aceitos
+    const pinValue = pinInput.value.trim();
 
-    // Verificar se o usuário quer tentar novamente
-    var tentarNovamente = confirm("Deseja tentar novamente?");
-    console.log("DEBUG: Tentar novamente?", tentarNovamente);
-
-    if (!tentarNovamente) {
-        alert("Programa encerrado. Obrigado!");
-        break; // Sai do loop externo se o usuário não quiser tentar novamente
+    if (!/^\d{4}$/.test(pinValue) || isNaN(pinValue)) {
+        mostrarMensagem("Por favor, digite um número de 4 dígitos.");
+        return;
     }
-} // Fim do loop externo
+
+    const pinValueInt = parseInt(pinValue);
+
+    if (pinValueInt === pinCorreto) {
+        successMessage.style.display = 'block';
+        mostrarMensagem('');
+    } else {
+        let dica = pinValueInt > pinCorreto ? "menor" : "maior";
+
+        if (Math.abs(pinValueInt - pinCorreto) > 100) {
+            dica = "muito " + dica;
+        }
+
+        mostrarMensagem(`Tente novamente. O próximo valor deve ser ${dica} que ${pinValueInt}.`);
+    }
+}
+
+
+function resetarForm() {
+    const successMessage = document.getElementById('successMessage');
+
+    document.getElementById('pinForm').reset();
+    successMessage.style.display = 'none';
+    mostrarMensagem('');
+}
+
+function limparFormulario() {
+    document.getElementById('pinForm').reset();
+}
+
+function mostrarMensagem(mensagem) {
+    const outputElement = document.getElementById('output');
+    outputElement.textContent = mensagem;
+    outputElement.style.display = 'block';
+}
+
+function mostrarDica(mensagem) {
+    const dicaMessage = document.getElementById('dicaMessage');
+    dicaMessage.textContent = mensagem;
+    dicaMessage.style.display = 'block';
+}
+
+function gerarPIN() {
+    return Math.floor(Math.random() * 9000) + 1000;
+}
+
+
+document.getElementById('pinForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    verificarPIN();
+});

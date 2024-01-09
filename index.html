@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Inclusão do Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Inclusão do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Sistema de Verificação de PIN</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Sistema de Verificação de PIN</h1>
+                <button class="btn btn-primary" id="startButton" onclick="iniciarSistema()">Iniciar Sistema</button>
+                <form id="pinForm" style="display: none;" onsubmit="verificarPIN(); return false;">
+                    <p id="output" class="card-text output-message"></p>
+                    <!-- Adicione este elemento abaixo do elemento com id "output" -->
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        Parabéns! Você acertou o PIN!
+                    </div>
+                    <div id="dicaMessage" class="dica-message" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="pinInput">Digite o PIN de 4 dígitos:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="pinInput" maxlength="4" pattern="\d{4}"
+                                title="Digite um número de 4 dígitos" required>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-success">Submeter PIN</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" type="button" onclick="limparFormulario()">Limpar <i
+                            class="fas fa-times"></i></button>
+                    <button class="btn btn-danger" onclick="resetarForm()">Resetar <i
+                            class="fas fa-redo-alt"></i></button>
+                </form>
+                <button class="btn btn-danger close-btn" id="fecharButton" style="display: none;"
+                    onclick="fecharForm()">Fechar <i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclusão do jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Inclusão do Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="appPin.js"></script>
+</body>
+
+</html>
