@@ -6,22 +6,36 @@ Este sistema em JavaScript foi criado como parte do desafio proposto pela Compas
 
 ## Objetivo do Sistema
 
-O objetivo deste sistema é realizar a verificação de um PIN (Personal Identification Number). O usuário é solicitado a inserir um número com pelo menos quatro dígitos. O sistema fornece feedback indicando se o número inserido é maior, muito maior, menor ou muito menor que o valor correto. O jogo continua até que o usuário acerte o PIN correto.
+O Sistema de Verificação de PIN tem como objetivo fornecer uma experiência interativa ao usuário, desafiando-o a adivinhar corretamente um número PIN (Personal Identification Number). O usuário receberá feedback sobre suas tentativas, indicando se o próximo valor deve ser maior, muito maior, menor ou muito menor que o informado. O jogo continua até que o usuário acerte o PIN correto.
 
-## Instruções de Uso
+## Funcionalidades
 
-1. Insira um número de pelo menos quatro dígitos quando solicitado.
-2. O sistema fornecerá feedback sobre as tentativas, indicando se o próximo valor deve ser maior, muito maior, menor ou muito menor que o informado.
-3. Uma mensagem de parabéns será exibida quando o valor correto for inserido.
-4. O número de tentativas será registrado e exibido ao usuário quando o PIN correto for adivinhado.
+- **Iniciar Sistema:** Clique no botão "Iniciar Sistema" para começar a jogar. O sistema gerará um PIN aleatório que o usuário tentará adivinhar.
+
+- **Inserir PIN:** Insira um número de pelo menos quatro dígitos no campo designado.
+
+- **Verificar PIN:** Clique no botão "Submeter PIN" para verificar se o número inserido está correto.
+
+- **Feedback:** Receba feedback sobre suas tentativas, indicando se o próximo valor deve ser maior, muito maior, menor ou muito menor que o informado.
+
+- **Parabéns:** Quando o PIN correto for adivinhado, uma mensagem de parabéns será exibida.
+
+- **Resetar:** Você pode reiniciar o sistema a qualquer momento clicando no botão "Resetar".
+
+- **Fechar:** Se desejar interromper o jogo, clique no botão "Fechar" para ocultar o formulário.
+
+## Estrutura de Arquivos
+
+- **index.html:** Página HTML principal que contém a estrutura do sistema.
+
+- **style.css:** Folha de estilo CSS que define a aparência e o layout do sistema.
+
+- **appPin.js:** Script JavaScript responsável pela lógica do sistena e interação com o usuário.
 
 ## Execução do Sistema
 
 1. Clone o repositório do GitHub.
-2. Execute o script JavaScript em um ambiente que suporte JavaScript, como um navegador web.
+2. Abra o arquivo `index.html` em um navegador web.
 3. Siga as instruções apresentadas na tela.
-4. Utilize mensagens de alerta para interagir com o usuário.
-
-------------------------------------------------------------------------------------------------------------------------------------
 
 Esperamos que aproveite o uso do Sistema de Verificação de PIN! Se precisar de alguma ajuda, sinta-se à vontade para entrar em contato.
